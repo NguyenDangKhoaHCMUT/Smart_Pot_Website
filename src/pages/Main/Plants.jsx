@@ -16,6 +16,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import Popover from "@mui/material/Popover";
 import Typography from "@mui/material/Typography";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Plants = () => {
   const { sendRequest, plantList } = useContext(PlantContext);
@@ -70,6 +71,22 @@ const Plants = () => {
     });
     setFilteredPlants(filtered);
   }, [searchTerm, filters, plantList]);
+
+  if (!plantList.length) {
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 2,
+          height: theme.trello.homeHeight,
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -291,16 +308,16 @@ const Plants = () => {
           padding: "20px",
         }}
       >
-        {filteredPlants && filteredPlants.length > 0
-          ? filteredPlants.map((plant, index) => (
-              <PlantCard
-                key={index}
-                plant={plant}
-                searchTerm={searchTerm}
-                filters={filters}
-              />
-            ))
-          : "No plants found"}
+        {filteredPlants &&
+          filteredPlants.length > 0 &&
+          filteredPlants.map((plant, index) => (
+            <PlantCard
+              key={index}
+              plant={plant}
+              searchTerm={searchTerm}
+              filters={filters}
+            />
+          ))}
       </Box>
     </Box>
   );

@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import Typography from "@mui/material/Typography";
 import YardIcon from '@mui/icons-material/Yard';
 import TextField from '@mui/material/TextField';
+import CircularProgress from "@mui/material/CircularProgress";
 import theme from "../../theme";
 
 const Plans = () => {
@@ -32,6 +33,22 @@ const Plans = () => {
     );
     setSortedPlanList(filteredPlans);
   }, [searchTerm, planList]);
+
+  if (!planList.length) {
+      return (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: 2,
+            height: theme.trello.homeHeight,
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      );
+    }
 
   return (
     <Box

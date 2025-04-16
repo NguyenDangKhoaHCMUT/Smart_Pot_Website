@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { createContext, useState, useEffect } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +12,7 @@ export default UserauthContext;
 export const UserauthProvider = () => {
   // SETUP
   const navigate = useNavigate();
+  const INACTIVE_TIMEOUT = 30 * 60 * 1000; // 30 phút không hoạt động sẽ logout
 
   // VARIABLES
   let [accessToken, setAccessToken] = useState(() =>
@@ -34,6 +36,8 @@ export const UserauthProvider = () => {
   let [user, setUser] = useState(null);
 
   let [loading, setLoading] = useState(false);
+
+  let [lastActivity, setLastActivity] = useState(Date.now());
 
   // FUNCTIONS
   const sendRequest = async (e, requestType) => {
@@ -245,6 +249,38 @@ export const UserauthProvider = () => {
     notify("warning", "Logged out!");
   };
 
+  const resetInactivityTimer = () => {
+    setLastActivity(Date.now());
+  };
+
+  useEffect(() => {
+    // Theo dõi các sự kiện người dùng
+    const events = ['mousedown', 'mousemove', 'keydown', 'scroll', 'touchstart'];
+    
+    const handleActivity = () => {
+      resetInactivityTimer();
+    };
+
+    events.forEach(event => {
+      window.addEventListener(event, handleActivity);
+    });
+
+    // Kiểm tra thời gian không hoạt động
+    const interval = setInterval(() => {
+      if (accessToken && Date.now() - lastActivity > INACTIVE_TIMEOUT) {
+        logout();
+        notify("warning", "Logged out due to inactivity!");
+      }
+    }, 1000);
+
+    return () => {
+      events.forEach(event => {
+        window.removeEventListener(event, handleActivity);
+      });
+      clearInterval(interval);
+    };
+  }, [lastActivity, accessToken]);
+
   // EXPORT
   const contextData = {
     // Variables
@@ -258,7 +294,11 @@ export const UserauthProvider = () => {
   };
 
   useEffect(() => {
-    if (sessionExpireTime && Date.now() >= sessionExpireTime) logout();
+    if (sessionExpireTime && Date.now() >= sessionExpireTime)
+    {
+      logout();
+      notify("warning", "Session expired!");
+    }
   }, []);
 
   return (

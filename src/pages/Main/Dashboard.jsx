@@ -75,7 +75,7 @@ function Dashboard() {
           justifyContent: "center",
           alignItems: "center",
           gap: 2,
-          height: "100vh",
+          height: theme.trello.homeHeight,
         }}
       >
         <CircularProgress />
