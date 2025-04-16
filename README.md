@@ -1,4 +1,4 @@
-# Smart Pot Management
+# [Smart Pot Management](https://smart-pot-website.vercel.app/)
 
 ## Introduction 
 
@@ -44,3 +44,9 @@ npm run dev
 - Material-UI (MUI)
 - React Bootstrap
 
+### Test Accounts
+You can use the following test accounts to explore different roles in the system:
+
+#### Student Account
+- **Email:** nhien
+- **Password:** 1234
