@@ -11,13 +11,13 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import CssBaseline from '@mui/material/CssBaseline'
-import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 import theme from './theme.js'
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // Deleted react strictmode tag
   <>
-  <CssVarsProvider theme={theme}>
+  <ThemeProvider theme={theme}>
     <CssBaseline />
     <App />
     <ToastContainer />
@@ -31,7 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         href="../node_modules/@chatscope/chat-ui-kit-styles/dist/default/styles.min.css"
       />
     </Helmet>
-  </CssVarsProvider>
+  </ThemeProvider>
     
   </>
 );

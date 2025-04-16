@@ -13,6 +13,9 @@ import { Box } from '@mui/material'
 
 function ModeSelect() {
   const { mode, setMode } = useColorScheme() // thay the cho localStorage
+  if (!mode) {
+    return null;
+  }
   const handleChange = (event) => {
     const selectedMode = event.target.value
     setMode(selectedMode)

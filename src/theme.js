@@ -1,10 +1,10 @@
-import { experimental_extendTheme as extendTheme } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 const APP_BAR_HEIGHT = 70;
 const HOME_HEIGHT = `calc(100vh - ${APP_BAR_HEIGHT}px)`;
 
 // Create a theme instance.
-const theme = extendTheme({
+const theme = createTheme({
   trello: {
     appBarHeight: APP_BAR_HEIGHT,
     homeHeight: HOME_HEIGHT,
@@ -17,7 +17,7 @@ const theme = extendTheme({
           dark: "#5D8736",
         },
         background: {
-          main: "white",
+          main: "#FDFAF6",
         },
         
       },
