@@ -67,7 +67,7 @@ function Dashboard() {
     }
   }, [searchTerm, unhealthyPlants]);
 
-  if (!plantList) {
+  if (!plantList.length) {
     return (
       <Box
         sx={{
@@ -75,7 +75,6 @@ function Dashboard() {
           justifyContent: "center",
           alignItems: "center",
           gap: 2,
-          width: "100vh",
           height: "100vh",
         }}
       >
@@ -117,7 +116,6 @@ function Dashboard() {
             flexDirection: "column",
             gap: 5,
             maxWidth: "100%",
-            // height: "450px",
           }}
         >
           <Box
